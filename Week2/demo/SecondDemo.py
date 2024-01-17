@@ -44,6 +44,9 @@ with open("Week2/demo/example.csv") as csvFile:  #the csvFile name is what the v
 print("--------------------------------")
 print(f"Total records {total_rec} |Total sal $ {total_sal:.2f}")
 
+
+
+
 #process the list to display the correct information
 #we are going to use a for loop-------------------
 
