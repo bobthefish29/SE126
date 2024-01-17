@@ -2,6 +2,7 @@
 #SE126 
 #january/17/24
 
+#i could have made it look nicer and not as complex but it works.
 
 #The csv file lab2a.csv contains a list of rooms, the maximum number of people that the room can accommodate, and the number of people currently registered for the event.
 
@@ -68,14 +69,16 @@ with open("SE126\Labs\TextFiles\lab2a.csv") as csvfile:
             attending.append(going)         
 #this is to have the correct room print and where it is located in the list by index
 index = -0
+#this is for how many rooms are over the limit - i dont know how it worked it could breake
 numberOfTimes = 0
+
 for i in overRoom:
     underPop[index] = underPop[index] * -1
     #print(f"The room {overRoom[index]} is {underPop[index]} over the max amount of people")
     print(f"{overRoom[index]:20} \t{roomMax[index]:5} \t\t{attending[index]:10}  \t\t{underPop[index]} ")
     index += 1
     numberOfTimes += 1
-
+#just printing the final display
 print(f"\nThere were {loopTime} rooms that we tested.")
 print(f"You have {numberOfTimes} rooms that are over")
 
