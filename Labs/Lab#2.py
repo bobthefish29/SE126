@@ -2,7 +2,7 @@
 #SE126 
 #january/17/24
 
-#i could have made it look nicer and not as complex but it works.
+#i could have made it look better and not as complex but it works.
 
 #The csv file lab2a.csv contains a list of rooms, the maximum number of people that the room can accommodate, and the number of people currently registered for the event.
 
@@ -38,7 +38,7 @@ attending = []
 #Welcoming the user and having the deceraton for the intro
 print("Room\t\t\t Max people.    People going. \t How much over.\n------------------------------------------------------")
 #this is having the lab file opened
-with open("SE126\Labs\TextFiles\lab2a.csv") as csvfile:
+with open("Labs/TextFiles/lab2a.csv") as csvfile:
     
     #setting file to be able to read each rec in the file
     file = csv.reader(csvfile)
