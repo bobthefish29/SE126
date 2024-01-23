@@ -38,7 +38,7 @@ attending = []
 #Welcoming the user and having the deceraton for the intro
 print("Room\t\t\t Max people.    People going. \t How much over.\n------------------------------------------------------")
 #this is having the lab file opened
-with open("Labs/TextFiles/lab2a.csv") as csvfile:
+with open("SE126\Labs\TextFiles\lab2a.csv") as csvfile:
     
     #setting file to be able to read each rec in the file
     file = csv.reader(csvfile)
