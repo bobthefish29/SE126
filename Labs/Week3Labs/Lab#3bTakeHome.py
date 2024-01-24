@@ -48,7 +48,7 @@ didVote = 0
 total_recoreds = 0
 
 #this is just opening the text file
-with open("Labs/TextFiles/voters_202040.csv") as csvFile:
+with open("SE126/Labs/TextFiles/voters_202040.csv") as csvFile:
 
     #this is readign the csv and setting it to file
     file = csv.reader(csvFile)

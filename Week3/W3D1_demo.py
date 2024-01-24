@@ -19,7 +19,7 @@ year_list = []
 
 print("Type\t Brand\t\tCPU\tRam\t1 Disk\tHHD?\t2 Disk\t Os\tYear")
 print("-----------------------------------------------------------------------")
-with open("Labs/TextFiles/lab2b.csv") as csvfile:
+with open("SE126/Week3/filesWithText/lab2b.csv") as csvfile:
 
     file = csv.reader(csvfile)
 
