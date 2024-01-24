@@ -53,7 +53,7 @@ print(f"comp type\t Manu   \tCPU \tRam\t Size\t Drive\t HD2\t OS\t Year")
 print("-----------------------------------------------------------------------------------------------------------")
 
 
-#this is opening the textfile so the information could be read
+#this is opening the textfile so the information could be read. This is mostlikly the thing that will breake becasue every time it does.
 with open("Labs/TextFiles/lab3a.csv") as csvFile:
 
 
