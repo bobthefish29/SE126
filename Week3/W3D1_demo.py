@@ -19,7 +19,7 @@ year_list = []
 
 print("Type\t Brand\t\tCPU\tRam\t1 Disk\tHHD?\t2 Disk\t Os\tYear")
 print("-----------------------------------------------------------------------")
-with open("se126/Week3/filesWithText/lab2b.csv") as csvfile:
+with open("Labs/TextFiles/lab2b.csv") as csvfile:
 
     file = csv.reader(csvfile)
 
@@ -90,7 +90,7 @@ with open("se126/Week3/filesWithText/lab2b.csv") as csvfile:
         year_list.append(year)
 
 
-        print(f"{comp_type:4}\t {manu:7}\t {pross:2}\t {ram:2}\t {size:5}\t {drive:5}\t {hd2:5}\t {os:5}\t {year:5}")
+        print(f"{comp_type:8}\t {manu:10}\t {pross:5}\t {ram:5}\t {size:5}\t {drive:5}\t {hd2:5}\t {os:5}\t {year:5}")
 #Out of file-----------------------------------------------------------------
 print("-----------------------------------------------------------------")
 print(f"Total Records: {total_count}")
@@ -100,7 +100,7 @@ print(f"Total Records: {total_count}")
 
 for index in range(0, total_count):
     #this could also be in range(0, len(comp_type_list)): This would also run for the total recoreds in the file.
-    print(f"{comp_type_list[index]:4}\t {manu_list[index]:7}\t {processor_list[index]:2}\t {ram_list[index]:2}\t {size_list[index]:5}\t {drive_list[index]:5}\t {hd2_list[index]:5}\t {os_list[index]:5}\t {year_list[index]:5}")
+    print(f"E{comp_type_list[index]:4}\t {manu_list[index]:7}\t {processor_list[index]:2}\t {ram_list[index]:2}\t {size_list[index]:5}\t {drive_list[index]:5}\t {hd2_list[index]:5}\t {os_list[index]:5}\t {year_list[index]:5}")
 
 
 #this is help for the lab that we are going to be duing due friday
