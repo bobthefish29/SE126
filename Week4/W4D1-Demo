@@ -1,0 +1,127 @@
+import csv
+
+#making lists here
+#This is a 1 d list that just have []
+
+fName = []
+lName = []
+test1 = []
+test2 = []
+test3 = []
+
+#opping the file
+
+with open("SE126/Week4/TextFile\listPractice1-1.txt") as csvFile:
+
+    file = csv.reader(csvFile)
+
+    for rec in file:
+        #print(rec)--->this is how to find a error if the index is out of sync/List out of index
+        #storing the data to the list that the field is about
+
+        #this is an example of an parallel list because we are storing the data to the index and its just having the data that belongs together
+
+        #this is adding the rec value to the list that is there
+        fName.append(rec[0])
+        lName.append(rec[1])
+        test1.append(int(rec[2]))#the 'int' is setting the numbers to be numbers and not string values.
+        test2.append(int(rec[3]))
+        test3.append(int(rec[4]))
+
+#prossing the lists---> this is just a for loop
+
+print("First name \t Last Name \t 1st Test \t 2nt test\t 3rd test\t")
+print("-----------------------------------------------------------------------------")
+
+for i in range(0, len(fName)):#the list is all the same size so it can be any pick to be able to have it
+
+
+
+    print(f"{fName[i]:12} \t {lName[i]:12}  \t {test1[i]} \t\t {test2[i]} \t\t {test3[i]}")
+print("----------------------------------------------------------------------------")
+#finding the test avarage 
+avg = 0
+total_count = 0
+
+#new lists
+average = []
+
+for i in range(0, len(test1)):
+
+    #doing the math for the avarage
+
+    avg = (test1[i] + test2[i] + test3[i]) / 3
+
+    average.append(avg)
+
+    #displaying the student f name and average
+
+
+#THE I is a local var to have each list so you can use it more
+print("First name \t Average")
+print("------------------------------------")
+for i in range(0, len(fName)):
+    print(f"{fName[i]:12} \t {average[i]:8.1f}")
+
+#this is new stuff depending on when i look back
+#sequential search- in sequence --> from beginning through the end
+
+low_name = ""
+low_avg = 100 #start with highest value to drop it down to the lowest
+
+high_name =""
+high_avg = 0
+
+
+for i in range(0, len(average)):
+    #finding the current average is lower than current low_avg
+    if average[i] < low_avg:
+
+        #this is to set the avg that is at the lowest there
+        low_avg = average[i]
+
+        #this is to get the current name at that set list
+        low_name = fName[i]
+    if average[i] > high_avg:
+        high_avg = average[i]
+
+        high_name = fName[i]
+
+
+
+#displaying total students in file
+print(f"\nStudents in file: {len(fName)} ")
+print(f"\nStudent {high_name} has the best score of {high_avg:.1f}\n")
+print(f"Student {low_name} has the worst score of {low_avg:.1f}\n")
+
+
+#------2D lists------------------
+#using 1d list to make a new 2d list
+#hint the 2D list is a list -- populated with lists 8D
+
+all_student = []
+
+for i in range(0, len(fName)):
+
+    #adding the student data to there (index) place in the all_students list[]
+    #all_student.append("["+ "'"+str(fName[i])+ "'" + "," + "'"+ str(lName[i])+ "'" + "," + "'"+ str(test1[i])+ "'" + "," + "'"+ str(test2[i])+ "'" + "," + "'"+ str(test3[i])+"'" + "]")#this is def the hardest way to do it, but i did it this way
+
+    all_student.append([fName[i], lName[i], test1[i], test2[i], test3[i], average[i]])
+
+
+
+#displaying the 2D lists to the con for now, the first should like like [Floyd,Eastham,100,85,93]
+print(f"\n------------------2D-list printing---------------------------\n")
+for i in range(0, len(all_student)):
+    print(all_student[i])
+
+#displaying the 2d list to the con where each value for each list appears as a value 
+
+
+for i in range(0, len(all_student)):
+    for x in range(0, len(all_student[i])):
+        #inner for handless each value found at current list( all_students[i])
+        print(f"{all_student[i] [x]}", end=" - ")
+
+    #include an extra empty print() to cancel the interior print end=""
+    print( )
