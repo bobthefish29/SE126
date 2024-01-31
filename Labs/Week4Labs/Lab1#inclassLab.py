@@ -14,17 +14,18 @@
 #the last part we need to have a 2D list that is holding all the data that we found 
 
 
-#####################################################
+##############################################################
 
-#so um a lot of this is just copy from the week 4 day 1 demo but i has parts that are different, ill add a comment when i go in a change it from the demo 
+#so um a lot of this is just copy from the week 4 day 1 demo but i has parts that are different, ill add a comment when i go in a change it from the demo and when i add new stuff. But like 90% is just demo. 
 
 ###############################################################
 
 import csv
 
 #making lists here
-#This is a 1 d lists
 
+
+#This is a 1 d lists
 fName = []
 lName = []
 test1 = []
@@ -32,7 +33,6 @@ test2 = []
 test3 = []
 
 #opping the file
-
 with open("Week4/TextFile/listPractice1-1.txt") as csvFile:
 
     file = csv.reader(csvFile)
@@ -74,16 +74,15 @@ for i in range(0, len(test1)):
     avg = (test1[i] + test2[i] + test3[i]) / 3 
 
 
+    ####################################################
     #this is the round command, it rounds the numbers to the 2 decnmal point, I had to google it to use it but it loops better.
     avg = round(avg, 2)
 
 
 
     class_avg = class_avg + avg
-
     #adding the average to the list
     average.append(avg)
-
     #this is me, this was not in the demo that you had us do
     if avg >= 90 and avg <= 100:#if it is 90 - 100 it is an A and so on
         letter_avg.append("A")
@@ -95,6 +94,10 @@ for i in range(0, len(test1)):
         letter_avg.append("D")
     else:
         letter_avg.append("F")
+
+
+    ##############################################33
+        
 
 
     #just printing random things that might be trashed
@@ -120,7 +123,7 @@ else:
 
 
 
-print(f"\nThe class average is {class_avg:.1f}, that would be an {classLetterAvg}.")
+print(f"\nThere are {total_count} students with a class average of {class_avg:.1f}, that would be a {classLetterAvg}.")
 
 
 #this is going to the place were i have the displayes for the 2D list
