@@ -61,7 +61,7 @@ print("First Name   |\t Last Name    |  age \t   Nic name \t\t House ")
 print("---------------------------------------------------------------------------------------------------------")
 
 #oppening the file
-with open("Labs/TextFiles/lab4A_GOT_NEW.txt") as csvFile:
+with open("SE126\Labs\TextFiles\lab4A_GOT_NEW.txt") as csvFile:
     #reading the file as a csv file
     file = csv.reader(csvFile)
 
