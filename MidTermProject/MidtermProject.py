@@ -4,6 +4,13 @@
 #SE126.10
 
 
+#Menu than based on the user pick it gives them the type of game for it. 
+
+#have the menu than the user picks 1-3 
+
+#1: long & lat game
+#2: 
+#3: exit
 
 #making a long and lat project 
 #giving a location that would be given a random 4 and the user has to guess. 
@@ -22,53 +29,209 @@
 #wrong - take one life away, move to next long and lat
 #correct - Add one point, move to next long and lat.
 
-#---------------------------------------------------------------
+#------------------The location for the importing of other recorces---------------
 
-
-
-
-
-#--------------------------------Main code------------------------------------------
-
+#Getting the imports for the other stuff that i am using
 import random
 import csv
+import time
+from os import system, name 
 
+#----------------------This is where i am making the lists and the vars------------------------------------
+#the lists for the long and lat game
 location = []
 long = []
 lat = []
 
+ranlonglat = random.randint(0, 41)
+
+#the lists for the pokemon game
+pokeNum = []
+pokeName = []
+pokeType = []
+pokeType2 = []
+pokeTotal = []
+pokeAtt = []
+pokeDef = []
+pokeAttSpeed = []
+pokeDefSpeed = []
+pokeSpeed = []
+pokeGen = []
+pokeLeg = []
+
+#the vars for the projects
 randDeside = 0
+coins = 0
+live = 3
 
-randDeside2 = 0
-randDeside3 = 0
-randDeside4 = 0
+#----------------------------------Functions------------------------------
+#this is where the functions are going ton be for my program
+#It will be most of my program will be in the functions than it will have so stuff out of the functions
+
+#This is the clear function, it clears the terminal so it makes it look better
+def clear():
+
+    # for windows 
+    if name == 'nt': 
+        _ = system('cls') 
+
+    # for mac and linux(here, os.name is 'posix') 
+    else: 
+        _ = system('clear')
 
 
-randDeside = random.randint(0, 41)
+#menu function
+def menu():
+    #Printing the menu
+    print("\n1. Play the hard Long and Lat game. :)")
+    print("2. Get a random pokemon ?")
+    print("3. See Pokemon (basic)")
+    print("4. Quit my project :(")
+    #getting the input
+    userInput= input("\nWhat would you like to do user(1-3)?: ")
 
-randDeside2 = random.randint(0, 41)
-randDeside3 = random.randint(0, 41)
-randDeside4 = random.randint(0, 41)
+    #print(userInput)
 
-#print("Before")
-#print(randDeside)
+    #The loop to trap the user in, than sending it out as a string that i need to cast as a int when i call it.
+    while userInput != "1" and userInput != "2" and userInput != "3" and userInput != "4":
+        print("Wrong")
+        userInput= input("\nWhat would you like to do user(1-4)?: ")
 
-with open("SE126/MidTermProject/TextFile/locations.txt", encoding = "utf-8") as csvFile:
+    return userInput
 
-    file = csv.reader(csvFile)
+def longLatGame(hp, money):
+    #The starting for the game
+    round = 10
+
+
+    #printing for the user to read
+    print("------This game is hard------\n")
+    print(f"\tYour Total hp: {hp}")
+    print(f"\tYou have: {money}")
+    gamePicker = input("\nGame 1 more money, more Qustions\nGame 2 less money, less qustions\n\n(1 or 2): ")
+    while gamePicker != "1" and gamePicker != "2":
+        print("wrong")
+        gamePicker = input("\nGame 1 more money, more Qustions\nGame 2 less money, less qustions\n\n(1 or 2): ")
+
+    
+    print("\n------Good luck------")
+
+
+
+    #THis is the sleep function, it pauses the terminal than the clear function clears the terminal
+    time.sleep(3)
+    clear()
+    
+    
+    while hp > 0 and round != 0:
+        
+        if gamePicker == "1":
+            ranlonglat = random.randint(0, 41)
+            redHar1 = random.randint(0, 41)
+            redHar2 = random.randint(0, 41)
+            redHar3 = random.randint(0, 41)
+
+            print(f"What is the location of {location[ranlonglat]}")
+            print(f"\nA. Long {long[ranlonglat]}, Lat: {lat[ranlonglat]}  ")
+
+            print(f"B. Long {long[redHar1]}, Lat: {lat[redHar1]}  ")
+            print(f"C. Long {long[redHar2]}, Lat: {lat[redHar2]}  ")
+            print(f"D. Long {long[redHar3]}, Lat: {lat[redHar3]}  ")
+
+            longLatGamePick = input("\nWhat is your answer: ")
+
+            while longLatGamePick != "A" and longLatGamePick != "a" and longLatGamePick != "B" and longLatGamePick != "b" and longLatGamePick != "C" and longLatGamePick != "c" and longLatGamePick != "D" and longLatGamePick != "d":
+                print("-------You Have to pick A,B,C,D silly---------")
+                longLatGamePick = input("\nWhat is your answer: ")
+
+            
+
+            
+
+
+
+
+
+    return hp, money
+    
+
+
+#--------------------This is where i am going to be adding the values to there respected list before i use them.
+
+#this is for the loop for long and lat game
+with open("MidTermProject/TextFile/locations.txt", encoding = "utf-8") as longLatFile:
+
+    file = csv.reader(longLatFile)
 
     for rec in file:
         location.append(rec[0])
         long.append(float(rec[1]))
         lat.append(float(rec[2]))
+#out of loop
+
+#this is the loop for the pokemon game
+with open("MidTermProject/TextFile/Pokemon.csv") as pokeFile:
+
+    pokiefile = csv.reader(pokeFile)
+
+    for rec in pokiefile:
+        #adding the rec of the pokemon list to there location
+        pokeNum.append(int(rec[0]))
+        pokeName.append(rec[1])
+        pokeType.append(rec[2])
+
+        #This is there so if the pokemon has a type 2 or not
+        if rec[3] == "":
+            pokeType2.append("NUN")
+        else:
+            pokeType2.append(str(rec[3]))
+
+        
+        #readding the values to there lists
+        pokeTotal.append(int(rec[4]))
+        pokeAtt.append(int(rec[5]))
+        pokeDef.append(int(rec[6]))
+        pokeAttSpeed.append(int(rec[7]))
+        pokeDefSpeed.append(int(rec[8]))
+        pokeSpeed.append(int(rec[9]))
+        pokeGen.append(int(rec[10]))
+        pokeLeg.append(rec[11])
+#Out of loop
 
 
-print(f"What is the Long and lat of location {location[randDeside]}")
+#----------------------This is where i will have my main code------------------------------------
 
-print(f"\nA: long {long[randDeside]} Lat {lat[randDeside]} ")
+#this is the main code to have everything
 
-print(f"B: long {long[randDeside2]:.2f} Lat: {lat[randDeside2]} ")
-print(f"C: long {long[randDeside3]:.2f} Lat: {lat[randDeside3]} ")
-print(f"D: long {long[randDeside4]:.2f} Lat: {lat[randDeside4]} ")
+print("\t~~~~Welcome to my project!~~~~")
+print("\n\t---What would you like to do user?---")
 
-userAnw = input("\nWhat is your answer: ")
+gamePick = int(menu())
+
+
+while gamePick != 4:
+
+    if gamePick == 1:
+        live, coins = longLatGame(live, coins)
+        print("out of long lat")
+    elif gamePick == 2:
+        print(" '2'  ")
+    else:
+        print(" '3'  ")
+
+    gamePick = int(menu())
+
+
+input("----------------------Stop-----------------")
+
+
+
+
+
+
+
+
+
+
+
+
