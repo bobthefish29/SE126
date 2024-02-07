@@ -64,6 +64,50 @@ randDeside = 0
 coins = 0
 live = 3
 
+
+#--------------------This is where i am going to be adding the values to there respected list before i use them.
+
+#this is for the loop for long and lat game
+with open("SE126/MidTermProject/TextFile/locations.txt", encoding = "utf-8") as longLatFile:
+
+    file = csv.reader(longLatFile)
+
+    for rec in file:
+        location.append(rec[0])
+        long.append(float(rec[1]))
+        lat.append(float(rec[2]))
+#out of loop
+
+#this is the loop for the pokemon game
+with open("SE126/MidTermProject/TextFile/Pokemon.csv") as pokeFile:
+
+    pokiefile = csv.reader(pokeFile)
+
+    for rec in pokiefile:
+        #adding the rec of the pokemon list to there location
+        pokeNum.append(int(rec[0]))
+        pokeName.append(rec[1])
+        pokeType.append(rec[2])
+
+        #This is there so if the pokemon has a type 2 or not
+        if rec[3] == "":
+            pokeType2.append("NUN")
+        else:
+            pokeType2.append(str(rec[3]))
+
+        
+        #readding the values to there lists
+        pokeTotal.append(int(rec[4]))
+        pokeAtt.append(int(rec[5]))
+        pokeDef.append(int(rec[6]))
+        pokeAttSpeed.append(int(rec[7]))
+        pokeDefSpeed.append(int(rec[8]))
+        pokeSpeed.append(int(rec[9]))
+        pokeGen.append(int(rec[10]))
+        pokeLeg.append(rec[11])
+#Out of loop
+
+
 #----------------------------------Functions------------------------------
 #this is where the functions are going ton be for my program
 #It will be most of my program will be in the functions than it will have so stuff out of the functions
@@ -126,23 +170,68 @@ def longLatGame(hp, money):
     while hp > 0 and round != 0:
         
         if gamePicker == "1":
-            ranlonglat = random.randint(0, 41)
-            redHar1 = random.randint(0, 41)
-            redHar2 = random.randint(0, 41)
-            redHar3 = random.randint(0, 41)
+            #getting the random location
+            ranlonglat = random.randint(0, 40)
+
+            #picking the other random locations
+            redHar1 = random.randint(0, 40)
+            redHar2 = random.randint(0, 40)
+            redHar3 = random.randint(0, 40)
+            ranList = []
+            thing1 = []
+            thing2 = []
+            thing3 = []
+            thing4 = []
+
+            there = random.randint(0, 3)
+
+            #thing1.append([long[redHar1], lat[redHar1]])
+            #thing2.append([long[redHar2], lat[redHar2]])
+            #thing3.append([long[redHar3], lat[redHar3]])
+            #thing4.append([long[ranlonglat], lat[ranlonglat]])
+
+            #ranList.append(long[redHar1], lat[redHar1],long[redHar2], lat[redHar2],long[redHar3], lat[redHar3],long[ranlonglat], lat[ranlonglat])
+
+            print("--------------------")
+            print(ranList)
+
+            for i in range(0, 3):
+                there = random.randint(0, 3)
+                print(there)
+                ranList.append([long[there], lat[there]])
+                
+
 
             print(f"What is the location of {location[ranlonglat]}")
+
+            #ranList.append(long[there], lat[there])
+
+            
+            
+            print(there)
             print(f"\nA. Long {long[ranlonglat]}, Lat: {lat[ranlonglat]}  ")
 
-            print(f"B. Long {long[redHar1]}, Lat: {lat[redHar1]}  ")
-            print(f"C. Long {long[redHar2]}, Lat: {lat[redHar2]}  ")
-            print(f"D. Long {long[redHar3]}, Lat: {lat[redHar3]}  ")
+            print(f"B. {ranList[there]} ")
+            print(f"c. {ranList[there]} ")
+
+
+            #print(f"B. {ranList[there]}")
+            #print(f"c. {ranList[there]}")
+            #print(f"D. {ranList[there]}")
+
+            #print(f"C. Long {long[redHar2]}, Lat: {lat[redHar2]}  ")
+            #print(f"D. Long {long[redHar3]}, Lat: {lat[redHar3]}  ")
 
             longLatGamePick = input("\nWhat is your answer: ")
 
             while longLatGamePick != "A" and longLatGamePick != "a" and longLatGamePick != "B" and longLatGamePick != "b" and longLatGamePick != "C" and longLatGamePick != "c" and longLatGamePick != "D" and longLatGamePick != "d":
                 print("-------You Have to pick A,B,C,D silly---------")
                 longLatGamePick = input("\nWhat is your answer: ")
+
+
+        ranList.clear()
+
+
 
             
 
@@ -156,48 +245,7 @@ def longLatGame(hp, money):
     
 
 
-#--------------------This is where i am going to be adding the values to there respected list before i use them.
-
-#this is for the loop for long and lat game
-with open("MidTermProject/TextFile/locations.txt", encoding = "utf-8") as longLatFile:
-
-    file = csv.reader(longLatFile)
-
-    for rec in file:
-        location.append(rec[0])
-        long.append(float(rec[1]))
-        lat.append(float(rec[2]))
-#out of loop
-
-#this is the loop for the pokemon game
-with open("MidTermProject/TextFile/Pokemon.csv") as pokeFile:
-
-    pokiefile = csv.reader(pokeFile)
-
-    for rec in pokiefile:
-        #adding the rec of the pokemon list to there location
-        pokeNum.append(int(rec[0]))
-        pokeName.append(rec[1])
-        pokeType.append(rec[2])
-
-        #This is there so if the pokemon has a type 2 or not
-        if rec[3] == "":
-            pokeType2.append("NUN")
-        else:
-            pokeType2.append(str(rec[3]))
-
-        
-        #readding the values to there lists
-        pokeTotal.append(int(rec[4]))
-        pokeAtt.append(int(rec[5]))
-        pokeDef.append(int(rec[6]))
-        pokeAttSpeed.append(int(rec[7]))
-        pokeDefSpeed.append(int(rec[8]))
-        pokeSpeed.append(int(rec[9]))
-        pokeGen.append(int(rec[10]))
-        pokeLeg.append(rec[11])
-#Out of loop
-
+#
 
 #----------------------This is where i will have my main code------------------------------------
 
