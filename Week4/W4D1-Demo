@@ -11,7 +11,7 @@ test3 = []
 
 #opping the file
 
-with open("SE126/Week4/TextFile\listPractice1-1.txt") as csvFile:
+with open("Week4/TextFile/listPractice1-1.txt") as csvFile:
 
     file = csv.reader(csvFile)
 
@@ -121,7 +121,7 @@ for i in range(0, len(all_student)):
 for i in range(0, len(all_student)):
     for x in range(0, len(all_student[i])):
         #inner for handless each value found at current list( all_students[i])
-        print(f"{all_student[i] [x]}", end=" - ")
+        print(f"\n{all_student[i] [x]}", end=" - ")
 
     #include an extra empty print() to cancel the interior print end=""
     print( )

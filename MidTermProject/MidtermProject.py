@@ -42,6 +42,7 @@ from os import system, name
 location = []
 long = []
 lat = []
+longLat2d = []
 
 ranlonglat = random.randint(0, 41)
 
@@ -68,7 +69,7 @@ live = 3
 #--------------------This is where i am going to be adding the values to there respected list before i use them.
 
 #this is for the loop for long and lat game
-with open("SE126/MidTermProject/TextFile/locations.txt", encoding = "utf-8") as longLatFile:
+with open("MidTermProject/TextFile/locations.txt", encoding = "utf-8") as longLatFile:#encodeing was from kt and conner?
 
     file = csv.reader(longLatFile)
 
@@ -76,10 +77,15 @@ with open("SE126/MidTermProject/TextFile/locations.txt", encoding = "utf-8") as 
         location.append(rec[0])
         long.append(float(rec[1]))
         lat.append(float(rec[2]))
+    #making the 2d list 
+    
+    for i in range (0, len(location)):
+        longLat2d.append([location[i],long[i],lat[i]])
+    #print(longLat2d)
 #out of loop
 
 #this is the loop for the pokemon game
-with open("SE126/MidTermProject/TextFile/Pokemon.csv") as pokeFile:
+with open("MidTermProject/TextFile/Pokemon.csv") as pokeFile:
 
     pokiefile = csv.reader(pokeFile)
 
@@ -132,7 +138,7 @@ def menu():
     print("3. See Pokemon (basic)")
     print("4. Quit my project :(")
     #getting the input
-    userInput= input("\nWhat would you like to do user(1-3)?: ")
+    userInput= input("\nWhat would you like to do user(1-4)?: ")
 
     #print(userInput)
 
@@ -141,6 +147,8 @@ def menu():
         print("Wrong")
         userInput= input("\nWhat would you like to do user(1-4)?: ")
 
+    time.sleep(2)
+    clear()
     return userInput
 
 def longLatGame(hp, money):
@@ -170,49 +178,93 @@ def longLatGame(hp, money):
     while hp > 0 and round != 0:
         
         if gamePicker == "1":
-            #getting the random location
-            ranlonglat = random.randint(0, 40)
+            copyList = []
+            copyList = longLat2d
+            print(copyList)
+            gameList = []
+            rand_num = 0
+            start_len = len(copyList)
+            index = 0
+            
+            while index < start_len:
+                #THis is sorting the list to make it into a random list
+                print(f"\n------1Run time: {index}------------")
+                #print(f"1Copy len:{len(copyList)}")
+                #Setting to a random num based on copy
+                rand_num = random.randint(0, len(copyList))
+                #print(f"1Rand num: {rand_num}")
+                #if its over than it would subtract than set it to that, the -1 is because the it index would set it to 0 instead
+                if rand_num == -1:
+                    rand_num = 0
+                elif rand_num >= len(copyList):
+                    rand_num -= 1
+                    #print("\t------over-------")
 
-            #picking the other random locations
-            redHar1 = random.randint(0, 40)
-            redHar2 = random.randint(0, 40)
-            redHar3 = random.randint(0, 40)
-            ranList = []
-            thing1 = []
-            thing2 = []
-            thing3 = []
-            thing4 = []
+                gameList.append(copyList[rand_num])
+                #print(gameList)
+                #print(f"Before{copyList}")
 
-            there = random.randint(0, 3)
+                #print(f"\n2Run time: {index}")
+                #print(f"2Rand num: {rand_num}")
+                copyList.pop(rand_num)
+                #print(f"2Copy len:{len(copyList)}")
+                #print(f"after{copyList}")
+                #print(f"\n3Run time: {index}")
+                #print(f"3Rand num: {rand_num}")
+                index += 1
 
-            #thing1.append([long[redHar1], lat[redHar1]])
-            #thing2.append([long[redHar2], lat[redHar2]])
-            #thing3.append([long[redHar3], lat[redHar3]])
-            #thing4.append([long[ranlonglat], lat[ranlonglat]])
+            print(gameList)
 
-            #ranList.append(long[redHar1], lat[redHar1],long[redHar2], lat[redHar2],long[redHar3], lat[redHar3],long[ranlonglat], lat[ranlonglat])
 
+            #----------------------------Up to point of trying to get print to work. i have a lot to go :)
             print("--------------------")
-            print(ranList)
+            #print(ranList)
 
-            for i in range(0, 3):
-                there = random.randint(0, 3)
-                print(there)
-                ranList.append([long[there], lat[there]])
-                
+            
+            randomPlace = random.randint(0, len(gameList))
+            randomPlace1 = random.randint(0, len(gameList))
+            randomPlace2 = random.randint(0, len(gameList))
+            
+            if randomPlace == -1:
+                    randomPlace = 0
+            elif randomPlace >= len(gameList):
+                    randomPlace -= 1
+
+            printlist = []
+
+            printlist2 = []
+            printlist3 = []
+            printlist4 = []
+
+            for i in range(0, len(gameList)):
+                printlist.append(gameList[1][0])
+
+                printlist2.append(gameList[1][1])
+                printlist3.append(gameList[2][1])
+                printlist4.append(gameList[1][0])
+            print(printlist)
 
 
-            print(f"What is the location of {location[ranlonglat]}")
+
+            print(f"What is the location of {printlist[randomPlace]}")
+
+
+            print(f"A. {printlist2[randomPlace]}")
+
+
+
+            #1
+            #print(f"What is the location of {location[ranlonglat]}")
 
             #ranList.append(long[there], lat[there])
 
             
             
-            print(there)
-            print(f"\nA. Long {long[ranlonglat]}, Lat: {lat[ranlonglat]}  ")
+            #print(there)
+            #print(f"\nA. Long {long[ranlonglat]}, Lat: {lat[ranlonglat]}  ")
 
-            print(f"B. {ranList[there]} ")
-            print(f"c. {ranList[there]} ")
+            #print(f"B. {ranList[there]} ")
+            #print(f"c. {ranList[there]} ")
 
 
             #print(f"B. {ranList[there]}")
@@ -229,7 +281,7 @@ def longLatGame(hp, money):
                 longLatGamePick = input("\nWhat is your answer: ")
 
 
-        ranList.clear()
+        
 
 
 
@@ -241,7 +293,7 @@ def longLatGame(hp, money):
 
 
 
-    return hp, money
+    return money
     
 
 
@@ -260,7 +312,7 @@ gamePick = int(menu())
 while gamePick != 4:
 
     if gamePick == 1:
-        live, coins = longLatGame(live, coins)
+        coins = longLatGame(live, coins)
         print("out of long lat")
     elif gamePick == 2:
         print(" '2'  ")
