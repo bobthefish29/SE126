@@ -504,7 +504,7 @@ def pokeGame1All():
     #print(pokeAll[721][11])
     print(f"\n\t----You got # {pokeAll[allPokemonran][0]}: {pokeAll[allPokemonran][1]}----\n\nThey are a {pokeAll[allPokemonran][2]} and a {pokeAll[allPokemonran][3]} type.\nThey are from gen {pokeAll[allPokemonran][10]}.\n\n\t----Are they a lengendary---\n\t\t-{pokeAll[allPokemonran][11]}-")# this is the pokiemon the user got, based on the pick they choose.
     
-
+    #hi
     wonPrize = pokeAll[allPokemonran]
     
     input("\n\n\t-------Press enter when you are ready--------")
