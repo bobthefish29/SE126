@@ -17,7 +17,7 @@ class1 = []
 class2 = []
 class3 = []
 
-with open("SE126\Week7\Textfile\w7_demoFile.txt") as csvFile:
+with open("Week7/Textfile/w7_demoFile.txt") as csvFile:
 
     file = csv.reader(csvFile)
 
@@ -36,10 +36,12 @@ for i in range(0, len(id_stud)):
 
 #looking through the search to find the product
 
-searchName = input("What whould you class to search for: ")
+
+searchName = input("\n\nseqSearch-What whould you class to search for: ")
 #found = -1
 found = [] #having the list
 seq_search = 0
+#Search
 for i in range(0, len(lname)):
     seq_search += 1
     #Asking if the search name at that index to be the same thing
@@ -47,8 +49,7 @@ for i in range(0, len(lname)):
         #storing the data to a location (index)
         #if it finds it than there
         found.append(i)
-
-
+#outPut
 print (f"The projram went through {seq_search} times ")
 if found[0] != "":
     print(f"The person {searchName} was at index {found}")
@@ -60,33 +61,34 @@ else:
     print("Enter the ---name--- you want to use.")
 
 
+
 #binary search -----deviding the order into 2 sections based on the search pool, higher, lower
-searchName = input("What whould you Last Name to search for: ")
+searchName = input("\n\nBinary-What whould you Last Name to search for: ")
 min = 0 #the first spot for the search
 max = len(lname) - 1#taking away 1 because the lis does not go up to 26 only 25 in this case
 #mid = int((0 + (len(lname) - 1)) / 2 )
 mid = int((min + max) / 2)
 binCount = 0#just a count for the total times it then through
-
 #THis is the search idea
 while(min < max and searchName != lname[mid]):
     binCount += 1
-
     if searchName < lname[mid]:
         max = mid - 1
     else: 
         min = mid +1
-
     mid = int((min + max) / 2)
+if searchName== lname[mid]:
+    #Found them
+    print(f"There name is {fname[mid]} {lname[mid]} \n{class1[mid]} \n{class2[mid]} \n{class3[mid]}")
+else:
+    #not foundsorry
+    print(f"There is no person with the name {searchName}")
+    print("Enter the ---name--- you want to use.")
 
-    if searchName == lname[mid]:
-        #Found them
-        print(f"There name is {fname[mid]} {lname[mid]} \n{class1[mid]} \n{class2[mid]} \n{class3[mid]}")
-    else:
-        #not foundsorry
-        print(f"There is no person with the name {searchName}")
-        print("Enter the ---name--- you want to use.")
 
+
+
+input("\n\n\tl------------About to bubble sort------------")
 #BUBBLE SORT----------------------------------------
 
 nums = [100, 75, 32, 250, 47, 9, 2, 3, 99, 200]
