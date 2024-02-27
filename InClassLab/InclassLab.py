@@ -1,4 +1,7 @@
-
+#David punchak
+#brandon emdeiros
+#2/27/24
+#in class lab, plain seatting chart
 
 
 #-----------------------Code---------------------------------
