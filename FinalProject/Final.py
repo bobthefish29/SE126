@@ -164,15 +164,15 @@ def theWholeMazeGame():
 
         print("\n\t\t---Where would you like to start your adventure?---\n")
 
-        #time.sleep(1)
+        time.sleep(1)
 
-        print(f"X --> {headingRowlist}")
+        print(f"X is --> {headingRowlist}")
 
-        #time.sleep(1)
+        time.sleep(1)
 
-        print("\nY --V-Down-V--")
+        print("\nY is --V-Down-V--")
 
-        #time.sleep(1)
+        time.sleep(1)
 
 
         display = mazeDisplay(display)
@@ -232,12 +232,11 @@ def theWholeMazeGame():
         totalMonster = 0
         totalPlayer = 0
         tallyTotal = totalValue
-        while totalValue != 0:
-            print(f"\n----1.Total value run: {totalValue}-----\n")
-            while tallyTotal != 0 :
+        totalItems = 0
+
+        while tallyTotal != 0 :
                 for i in range(0, len(maze)):
                 #print(f"\nI: {i} Mazelen: {len(maze[i])}\n")
-                
                     for j in range(0, len(maze[i])):
                     #print(f"J: {j} Maze item: {maze[i][j]}")
                         if maze[i][j] == "X":
@@ -259,22 +258,61 @@ def theWholeMazeGame():
                             totalHall += 1
                             tallyTotal -= 1
 
-            print(f"\n----2.Total value run: {totalValue}-----\n")
-            print(f"Monster: {totalMonster}")
-            print(f"wall: {totalWalls}")
-            print(f"hall: {totalHall}")
-            print(f"chest: {totalChest}")
-            print(f"PLayer: {totalPlayer}")
-            input("\nNew Way")
+        totalItems += totalHall
+        totalItems += totalChest
+        totalItems += totalMonster
+        totalMoves = 0
+
+        print(f"\n\n----Total Spaces Avabile: {totalValue}-----\n")
+        input(f"---You lose if moves made >= Total Space---\n\n\t--Press Enter--")
+        #time.sleep(4)
+
+        while totalValue >= totalMoves:
+            
+            
+            #print(totalValue)
+            #input(totalItems)
             clear()
+            #print(f"\n----Total Moves Made: {totalMoves}-----\n")
+            #print(f"Monster: {totalMonster}")
+            #print(f"wall: {totalWalls}")
+            #print(f"hall: {totalHall}")
+            #print(f"chest: {totalChest}")
+            #print(f"PLayer: {totalPlayer}")
+            #input("\nNew Way")
+            #clear()
             display = mazeDisplay(display)
-            maze, display, userYcordLocation, userXcordLocation, totalValue = mazePlayerMovement(maze, display, userYcordLocation, userXcordLocation, totalValue )
+            maze, display, userYcordLocation, userXcordLocation, totalValue, totalMoves = mazePlayerMovement(maze, display, userYcordLocation, userXcordLocation, totalValue, totalMoves )
             display = mazeDisplay(display)
 
 
-            print(f"\n----3.Total value run: {totalValue}-----\n")
+            #print(f"\n----3.Total value run: {totalValue}-----\n")
+            #totalValue += 1
+
+            
+            #totalItems += 1
+
+            #if totalValue == totalMoves:
+                #print("\n---Last-Move---")
+                #time.sleep(3)
+
             totalValue -= 1
-            print(f"\n----4.Total value run: {totalValue}-----")
+            totalMoves += 1
+
+            #if totalValue == totalMoves:
+                #print("\n---Last-Move---")
+                #time.sleep(3)
+            #print(f"\n\n----Total Spaces Avabile: {totalValue}-----\n")
+            if totalValue <= totalMoves:
+                print("\n---That was your last move---")
+                time.sleep(2)
+            input(f"\n----Total Moves Made: {totalMoves}-----\n\n\n\t--Press Enter--")
+            
+
+
+
+            
+            #print(f"\n----4.Total value run: {totalValue}-----")
         
         #print(f"Monster: {totalMonster}")
         #print(f"wall: {totalWalls}")
@@ -287,7 +325,7 @@ def theWholeMazeGame():
         clear()
         maze = mazeDisplayFinal(mazeCopy)
         print("YouRan out of moves")
-        input("\n\n\t\t###############__________Old WAy_____________############")
+        input("\n\n\n\t\t###############__________Old WAy_____________############")
         clear()
         while canPlayerMove.lower() != "n":
             display = mazeDisplay(display)
@@ -340,9 +378,10 @@ def mazeDisplayFinal(maze):
     return mazeCopy
     
 # the full testing function ----- with out score -----if the is space behinde a wall 
-def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement,totalValue):
+def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement,totalValue, totalMoves):
     if mazeChange [playerLocationY][playerLocationX] == "W":
-        print("\n\n------Wall----\n")
+
+        input("\n------Wall------\n\n\t--Press Enter--")
         #nif the value is w,a,s,d, for wall it sets the player back to the right spot
         if playerMovement.upper() == "W":
             
@@ -360,6 +399,10 @@ def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMove
         #the total displays
         displayChange[playerLocationY][playerLocationX] = mazeChange[playerLocationY][playerLocationX]
         totalValue += 1
+
+        #totalMoves -= 1
+
+
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
     #it than moves to the c
@@ -374,20 +417,20 @@ def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMove
         mazeChange [playerLocationY][playerLocationX] = "#"
     #this what happends with p
     elif mazeChange [playerLocationY][playerLocationX] == "P":
-        print("You have been here")
+        input("\n---Starting Point---\n\n\t--PressEnter--")
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
         totalValue += 1
     #this is what happends at the hall
     else:
-        print("Hall")
+        input("\n---Hall---\n\n\t--Press Enter--")
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
 
-    return mazeChange,playerLocationY,playerLocationX,displayChange, totalValue
+    return mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves
 
 #this is for the player movement in the maze
-def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValue ):
+def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValue, totalMoves ):
     #print(f"width {width}")
     #input(f"Height {height}")
     totalValue = totalValue
@@ -429,9 +472,11 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
 
         #ege of map works
         if playerLocationY < 0:
-            print("You are at the ege of the map")
+            input("\n---You are at the ege of the map---\n\n\t--Press Enter--")
             playerLocationY += 1
             totalValue += 1
+
+            totalMoves -= 1
         else:
 
             #displayChange[playerLocationY][playerLocationX] = mazeChange[playerLocationY][playerLocationX]
@@ -441,12 +486,15 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
             playerLocationY -= 1
             
             if mazeChange[playerLocationY][playerLocationX] == "#":
-                print("--Spawn--")
+                input("\n---You have been here---\n\n\t--Press Enter--")
                 displayChange [playerLocationY][playerLocationX] = "P"
                 totalValue += 1
+
+
+                totalMoves -= 1
             else:
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue)
-                input("testing")
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                #input("testing")
                 
                 #if mazeChange [playerLocationY][playerLocationX] == "W":
                     #print("WAll")
@@ -489,8 +537,11 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
         #print(len(mazeChange[playerLocationY]))
 
         if playerLocationX < 0:
-            print("You are at the ege of the map")
+            input("\n---You are at the ege of the map---\n\n\t--Press Enter--")
             playerLocationX += 1
+            totalValue += 1
+
+            totalMoves -= 1
             
         else:
             #displayChange[playerLocationY][playerLocationX] = mazeChange[playerLocationY][playerLocationX]
@@ -502,11 +553,14 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
             
 
             if mazeChange[playerLocationY][playerLocationX] == "#":
-                print("You have been here")
+                input("\n---You have been here---\n\n\t--Press Enter--")
                 displayChange[playerLocationY][playerLocationX] = "P"
+                totalValue += 1
+                totalMoves -= 1
             else:
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue)
-                input("testing")
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                
+                #input("testing")
 
 
                 #if mazeChange [playerLocationY][playerLocationX] == "W":
@@ -542,7 +596,7 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
         #displayChange[playerLocationY][playerLocationX] = mazeChange[playerLocationY][playerLocationX]
 
         
-        print("A")
+        #Ending of A
     
     elif playerMovement.upper() == "S":
 
@@ -556,10 +610,11 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
         #print(len(mazeChange))
 
         if playerLocationY >= len(mazeChange):
-            print("You are at the ege of the map")
+            input("\n---Edge of the map---\n\n\t--Press Enter--")
             playerLocationY = (len(mazeChange) - 1)
             #print(playerLocationY)
             totalValue += 1
+            totalMoves -= 1
         else:
             #displayChange[playerLocationY][playerLocationX] = mazeChange[playerLocationY][playerLocationX]
 
@@ -568,13 +623,16 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
             playerLocationY += 1
             
             if mazeChange[playerLocationY][playerLocationX] == "#":
-                print("You have been here")
+                input("\n---You have been here---\n\n\t--Press Enter--")
                 displayChange [playerLocationY][playerLocationX] = "P"
                 totalValue += 1
+                totalMoves -= 1
             else:
 
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue)
-                input("testing")
+                
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                
+                #input("testing")
 
 
                 #if mazeChange [playerLocationY][playerLocationX] == "W":
@@ -619,9 +677,10 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
 
         #Just checking if the user has the 
         if playerLocationX >= len(mazeChange[0]):
-            print("You are at the ege of the map")
+            input("\n--You are at the ege of the map--\n\n\t--Press Enter--")
             playerLocationX -= 1
             totalValue += 1
+            totalMoves -= 1
             
         else:
             
@@ -634,13 +693,15 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
 
             #finding what the player is going to and doing what it is also seeting the way they go
             if mazeChange[playerLocationY][playerLocationX] == "#":
-                print("You have been here")
+                input("\n---You have been here---\n\n\t--Press Enter--")
                 totalValue += 1
+                totalMoves -= 1
                 displayChange[playerLocationY][playerLocationX] = "P"
             else:
-
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue)
-                input("testing")
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue,totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                
+                
+                #input("testing")
 
 
                 #if mazeChange [playerLocationY][playerLocationX] == "W":
@@ -683,7 +744,7 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
     clear()
 
 
-    return mazeChange, displayChange, playerLocationY, playerLocationX, totalValue
+    return mazeChange, displayChange, playerLocationY, playerLocationX, totalValue , totalMoves
 
 
 def chestFinds():
