@@ -22,9 +22,6 @@ Seats that are available are represented by # and seats that are taken are repre
 There are aisles after seats H and V.
 '''
 
-
-
-
 #importing for the clear function
 from os import system, name 
 
