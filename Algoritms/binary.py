@@ -15,7 +15,6 @@ mid = int((min + max) / 2)
 #this is for INCREASING order
 #this is for whne the min number is less than the max number and "search" does not equal the value at mid ----look again----
 while (min < max and search != listName[mid]):
-
     #This is for if the search is the 
     if search < listName[mid]:
 

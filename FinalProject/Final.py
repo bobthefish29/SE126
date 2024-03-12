@@ -8,6 +8,14 @@
 #the program runs well but test run it and try to fail. sleeping got some more time but neeed a lot more for what i want. 1-2 more days for just one idea than 3 tops for final. dont have that 
 
 
+#3/11 the project is completed, there is a little bug with the loop for the maze.
+#everything about the project is done just need to work out the bug in the maze loop and run it thought a few times to see if anyhting brakes
+
+
+#tmr do some live testing on mom and dad, fix up the prints and stuff. 
+
+
+
 
 
 
@@ -22,6 +30,27 @@ from os import system, name
 
 ###########----------------Setting global Vars / lists----------------##################
 userMenuChoise = 0
+
+score = []
+userName = []
+width  = []
+height = []
+
+totalList = []
+
+####################------------------Adding the values to the list-----------------#####################
+
+with open("FinalProject/TextFiles/Maze.csv") as csvFile:
+    file = csv.reader(csvFile)
+    for rec in file:
+        
+        score.append(rec[0])
+        userName.append(rec[1])
+        width.append(rec[2])
+        height.append(rec[3])
+    
+        totalList.append([int(rec[0]),rec[1],int(rec[2]),int(rec[3])])
+
 
 
 
@@ -41,10 +70,10 @@ def clear():
 #Not done but going to be menu that just returns a int of a number 1-4 nothing else.
 def menu():
     print("What would you like to do user")
-    print("1. play maze")
-    print("2. veiw score board")
-    print("3. view map layout.")
-    print("4. leave")
+    print("1. Play maze")
+    print("2. Veiw score board")
+    print("3. View map layout.")
+    print("4. Leave")
 
 
 
@@ -125,8 +154,8 @@ def init_maze(width, height):
     return maze, display
 
 #this is the function to call the maze games in the main code
-def theWholeMazeGame():
-
+def theWholeMazeGame(totalList):
+    copyList = totalList
     mazeGamePlay = input("\n\tDo you wish to enter?  ")
     mazeGamePlay = userInputYorNFunction(mazeGamePlay)
 
@@ -139,6 +168,7 @@ def theWholeMazeGame():
 
     while mazeGamePlay.lower() == 'y':
         #setting vars that i want to have be reset after the game so the user can have a different playthought
+        score = 0
         maze = []
         headingRowlist = []
         userXcord = 0
@@ -212,7 +242,7 @@ def theWholeMazeGame():
         display = mazeDisplay(display)
 
         #Asking where they would like to move to 
-        canPlayerMove = "y"
+        #canPlayerMove = "y"
 
         userYcordLocation = userYcord
         userXcordLocation = userXcord
@@ -262,16 +292,19 @@ def theWholeMazeGame():
         totalItems += totalChest
         totalItems += totalMonster
         totalMoves = 0
+        totalMoveCount = 0
 
         print(f"\n\n----Total Spaces Avabile: {totalValue}-----\n")
-        input(f"---You lose if moves made >= Total Space---\n\n\t--Press Enter--")
+        input(f"---You lose when you run out of moves---\n\n\t--Press Enter--")
         #time.sleep(4)
 
         while totalValue >= totalMoves:
             
             
             #print(totalValue)
-            #input(totalItems)
+            #input("Before run \n\n")
+
+
             clear()
             #print(f"\n----Total Moves Made: {totalMoves}-----\n")
             #print(f"Monster: {totalMonster}")
@@ -281,9 +314,19 @@ def theWholeMazeGame():
             #print(f"PLayer: {totalPlayer}")
             #input("\nNew Way")
             #clear()
+
+
+            #print(f"\tDebug:\nTotal moves: {totalMoves}\nMovesLeft: {totalValue - totalMoves}\nTotal Value: {totalValue}")
+            #input(f"Before movement")
+
             display = mazeDisplay(display)
-            maze, display, userYcordLocation, userXcordLocation, totalValue, totalMoves = mazePlayerMovement(maze, display, userYcordLocation, userXcordLocation, totalValue, totalMoves )
+            maze, display, userYcordLocation, userXcordLocation, totalValue, totalMoves, score = mazePlayerMovement(maze, display, userYcordLocation, userXcordLocation, totalValue, totalMoves, score )
             display = mazeDisplay(display)
+
+
+            #print(f"\tDebug:\nTotal moves: {totalMoves}\nMovesLeft: {totalValue - totalMoves}\nTotal Value: {totalValue}")
+            #input(f"after movement")
+
 
 
             #print(f"\n----3.Total value run: {totalValue}-----\n")
@@ -292,21 +335,73 @@ def theWholeMazeGame():
             
             #totalItems += 1
 
-            #if totalValue == totalMoves:
+            #print(f"before if ")
+            #print(f"\n\n\tDebug:\n\nTotalmoves: {totalMoves}")
+
+            if totalMoves < 0:
+                totalMoves = 0
+                totalMoveCount += 1
+
                 #print("\n---Last-Move---")
                 #time.sleep(3)
+            else:
+                totalMoves += 1
+                totalMoveCount += 1
 
+            #print(f"after if ")
+            #print(f"\n\n\tDebug:\n\nTotalmoves: {totalMoves}")
+            
+            #testing1 = totalMoves - totalValue
+            #testing2 = totalValue - totalMoves
+
+            #print(f"before adding +1 to total and -1 from move and after if ")
+            #print(f"\n\n\tDebug:\n\nTotalmoves: {totalMoves}\nMovesLeft: {totalValue - totalMoves}\nTotal Value: {totalValue}\n\nTesting1: {testing1}\ntesting2: {testing2}")
+            
+
+            #totalMoves += 1
             totalValue -= 1
-            totalMoves += 1
 
+            #totalMoves += 1
+
+            #testing1 = totalMoves - totalValue
+            #testing2 = totalValue - totalMoves
+            #testing2 += 1
+            #print(f"after adding +1 to total and -1 from move")
+            #print(f"\n\n\tDebug:\nTotal moves: {totalMoves}\nMovesLeft: {totalValue - totalMoves}\nTotal Value: {totalValue}\n\nTesting: {testing1}\Testing2 += 1: {testing2}")
+            
+            
+            
             #if totalValue == totalMoves:
                 #print("\n---Last-Move---")
                 #time.sleep(3)
             #print(f"\n\n----Total Spaces Avabile: {totalValue}-----\n")
-            if totalValue <= totalMoves:
-                print("\n---That was your last move---")
-                time.sleep(2)
-            input(f"\n----Total Moves Made: {totalMoves}-----\n\n\n\t--Press Enter--")
+            #if totalValue <= totalMoves:
+                
+                #input("testing")
+                #if lastmovecount == 1:
+                    #input("\n---This is your last move---\n\n\t---Press Enter---")
+                #else:
+                    #input("\n--You ran out of moves--\n\n\t---Press Enter---")
+                #lastmovecount += 1
+            #else:
+                #print(f"\n\n----Total Spaces Avabile: {totalValue}-----\n")
+            
+            if (totalValue - totalMoves) <= 0:
+                if (totalValue - totalMoves) == -1:
+                    input("----------------goodJob-----------------")
+                else:
+                    print(f"\nMoves Left: {(totalValue - totalMoves)}")
+                    input("\n\n\n\t\t------LastMove-------------------------------")
+                
+            else:
+                print(f"\nMoves Left: {totalValue - totalMoves}")
+                input(f"\n----Total Moves Made: {totalMoveCount}-----\n\n\n\t--Press Enter--")
+                #time.sleep(2)
+            
+                #print("\n---Was last move----")
+            #print(f"\n\n----Total Spaces Avabile: {totalValue}-----\n")
+            #print(f"Moves Left {totalValue - totalMoves}")
+            #input(f"\n----Total Moves Made: {totalMoves}-----\n\n\n\t--Press Enter--")
             
 
 
@@ -324,25 +419,26 @@ def theWholeMazeGame():
             
         clear()
         maze = mazeDisplayFinal(mazeCopy)
-        print("YouRan out of moves")
-        input("\n\n\n\t\t###############__________Old WAy_____________############")
-        clear()
-        while canPlayerMove.lower() != "n":
-            display = mazeDisplay(display)
-            maze, display, userYcordLocation, userXcordLocation = mazePlayerMovement(maze, display, userYcordLocation, userXcordLocation )
-            display = mazeDisplay(display)
+
+        #print("\n---You ran out of moves--")
+        #input("\n\n\n\t\t###############__________Old WAy_____________############")
+        #clear()
+        #while canPlayerMove.lower() != "n":
+            #display = mazeDisplay(display)
+            #maze, display, userYcordLocation, userXcordLocation = mazePlayerMovement(maze, display, userYcordLocation, userXcordLocation )
+            #display = mazeDisplay(display)
 
 
 
-            canPlayerMove = input("\nCan you explore more?: ")
-            clear()
-            canPlayerMove = userInputYorNFunction(canPlayerMove)
+            #canPlayerMove = input("\nCan you explore more?: ")
+            #clear()
+            #canPlayerMove = userInputYorNFunction(canPlayerMove)
 
 
 
         #this would be more for the score now from the movemtn player
 
-        input("Changed")
+        #input("Changed")
         #Now send to new function for maze 
 
 
@@ -350,8 +446,25 @@ def theWholeMazeGame():
 
 
         #the end of the project
-        mazeGamePlay = input("\n\tDo you wish to enter again?  ")
+        print(f"\nScore: {score}")
+        mazeGamePlay = input("\n\tDont like your score?\n\tWish to enter again(Y/N)?:  ")
         mazeGamePlay = userInputYorNFunction(mazeGamePlay)
+
+
+    clear()
+
+    print("\n----Well done user----\n")
+    print(f"\nYou got a score of {score}")
+
+    userName = input("\nWhat should we call you?: ")
+
+
+
+    copyList.append([score,userName, width, height])
+    clear()
+
+    
+    return copyList
 
 
 #this is for displaying to the user where they are in the maze
@@ -377,8 +490,8 @@ def mazeDisplayFinal(maze):
 
     return mazeCopy
     
-# the full testing function ----- with out score -----if the is space behinde a wall 
-def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement,totalValue, totalMoves):
+# the full functon for what the player might run into
+def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement,totalValue, totalMoves, score):
     if mazeChange [playerLocationY][playerLocationX] == "W":
 
         input("\n------Wall------\n\n\t--Press Enter--")
@@ -403,34 +516,43 @@ def testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMove
         #totalMoves -= 1
 
 
+
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
     #it than moves to the c
     elif mazeChange [playerLocationY][playerLocationX] == "C":
-        chestFinds()
+        score = chestFinds(score)
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
+
+        totalMoves -= 1
     #This is for the x
     elif mazeChange [playerLocationY][playerLocationX] == "X":
-        monsterFinds()
+        score = monsterFinds(score)
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
+        totalMoves -= 1
     #this what happends with p
     elif mazeChange [playerLocationY][playerLocationX] == "P":
         input("\n---Starting Point---\n\n\t--PressEnter--")
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
-        totalValue += 1
+        
+        totalMoves -= 1
+        totalMoves -= 1
+        #totalValue += 1
     #this is what happends at the hall
     else:
         input("\n---Hall---\n\n\t--Press Enter--")
         displayChange [playerLocationY][playerLocationX] = "P"
         mazeChange [playerLocationY][playerLocationX] = "#"
+        totalMoves -= 1
+        
 
-    return mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves
+    return mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves, score
 
-#this is for the player movement in the maze
-def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValue, totalMoves ):
+#this is for the player movement in the maze, this is if they move w,a,s,d.
+def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValue, totalMoves, score ):
     #print(f"width {width}")
     #input(f"Height {height}")
     totalValue = totalValue
@@ -475,7 +597,6 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
             input("\n---You are at the ege of the map---\n\n\t--Press Enter--")
             playerLocationY += 1
             totalValue += 1
-
             totalMoves -= 1
         else:
 
@@ -493,7 +614,7 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
 
                 totalMoves -= 1
             else:
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves,score = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves, score)
                 #input("testing")
                 
                 #if mazeChange [playerLocationY][playerLocationX] == "W":
@@ -558,7 +679,7 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
                 totalValue += 1
                 totalMoves -= 1
             else:
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves, score = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves, score)
                 
                 #input("testing")
 
@@ -630,7 +751,7 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
             else:
 
                 
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue, totalMoves, score = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves, score)
                 
                 #input("testing")
 
@@ -698,7 +819,7 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
                 totalMoves -= 1
                 displayChange[playerLocationY][playerLocationX] = "P"
             else:
-                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue,totalMoves = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves)
+                mazeChange,playerLocationY,playerLocationX,displayChange, totalValue,totalMoves, score = testing(mazeChange,playerLocationY,playerLocationX,displayChange, playerMovement, totalValue, totalMoves, score)
                 
                 
                 #input("testing")
@@ -744,27 +865,268 @@ def mazePlayerMovement(maze, display,playerLocationY, playerLocationX, totalValu
     clear()
 
 
-    return mazeChange, displayChange, playerLocationY, playerLocationX, totalValue , totalMoves
+    return mazeChange, displayChange, playerLocationY, playerLocationX, totalValue , totalMoves, score
+
+#this is what will happen if the user finds a chest
+def chestFinds(score):
+    print("\nYou found a chest :)")
+    hAHALuck = random.randint(6000,10000)
+    print(f"\nYou have ganed {hAHALuck} points\n ")
+
+    score += hAHALuck
+
+    if score >= 10000000000:
+        print("Wow you are at the score cap\n")
+        score = 10000000000
+    else:
+        print(f"Your Score is {score}\n")
+
+    input(f"\n\n\t-----Please Press Enter-----")
+    return score
+
+#this is what will hapen if the user Finds a monster
+def monsterFinds(score):
+    print("\nYou found a monster :(")
+    hAHALuck = random.randint(5000,10000)
+    print(f"\nYou lost {hAHALuck} points\n")
+
+    score -= hAHALuck
+
+    if score <= -1:
+        print("You just lost all your point\n")
+        score = 0
+    else:
+        print(f"Your Score is {score}\n")
+
+    input(f"\n\n\t-----Please Press Enter-----")
+    return score
 
 
-def chestFinds():
-    print("Chest")
-    hAHALuck = random.randint(0,1000000)
-    print(hAHALuck)
+
+################--------Function's for the leaderboard-----------##############
+
+#This is more of a sorting for the leaderboard, its more of a print function. 
+def leaderBoardScore(totalList):
+
+    scoreTestingList = totalList
+
+    #print(scoreTestingList)
+
+    for i in range(0, len(scoreTestingList) - 1):#outter loop
+
+        #print("OUTER LOOP! i = ", i)
+
+        #this is the loop for moving the number to the right place, 
+        for index in range(0, len(scoreTestingList) - 1):#inner loop
+
+            #print("\t INNER LOOP! k = ", index)
+
+            
+            if (scoreTestingList[index] < scoreTestingList[index + 1]):
+
+                #print("\t\t SWAP! ", scoreTestingList[index][0], "<-->", scoreTestingList[index + 1][0])
+
+                #swaping score
+                temp = scoreTestingList[index][0]
+                scoreTestingList[index][0] = scoreTestingList[index + 1][0]
+                scoreTestingList[index + 1][0] = temp
+
+                #swaping userName
+                temp = scoreTestingList[index][1]
+                scoreTestingList[index][1] = scoreTestingList[index + 1][1]
+                scoreTestingList[index + 1][1] = temp
+
+                #swaping width
+                temp = scoreTestingList[index][2]
+                scoreTestingList[index][2] = scoreTestingList[index + 1][2]
+                scoreTestingList[index + 1][2] = temp
+                
+                #swaping hight
+                temp = scoreTestingList[index][3]
+                scoreTestingList[index][3] = scoreTestingList[index + 1][3]
+                scoreTestingList[index + 1][3] = temp
 
 
-    input()
+
+    #print(f"\n{scoreTestingList}")
+
+    #input("Testing")
+    #this list is sorted by score, it will be more used for the display not the searches
+    return scoreTestingList
+
+
+
+def learderBoardUserName(totalList):
+    userNameList = totalList
+    
+    #the loop for sorting the values into the name value orfer for the search
+    for i in range(0, len(userNameList) - 1):#outter loop
+
+        #print("OUTER LOOP! i = ", i)
+
+        #this is the loop for moving the number to the right place, 
+        for index in range(0, len(userNameList) - 1):#inner loop
+
+            #print("\t INNER LOOP! k = ", index)
+
+            
+            if (userNameList[index][1].upper() > userNameList[index + 1][1].upper()):
+
+                #print("\t\t SWAP! ", scoreTestingList[index][0], "<-->", scoreTestingList[index + 1][0])
+
+                #swaping score
+                temp = userNameList[index][0]
+                userNameList[index][0] = userNameList[index + 1][0]
+                userNameList[index + 1][0] = temp
+
+                #swaping userName
+                temp = userNameList[index][1]
+                userNameList[index][1] = userNameList[index + 1][1]
+                userNameList[index + 1][1] = temp
+
+                #swaping width
+                temp = userNameList[index][2]
+                userNameList[index][2] = userNameList[index + 1][2]
+                userNameList[index + 1][2] = temp
+                
+                #swaping hight
+                temp = userNameList[index][3]
+                userNameList[index][3] = userNameList[index + 1][3]
+                userNameList[index + 1][3] = temp
+    #input("3\n")
+    #print(userNameList)
+    #input("4\n")
+
+    search = input("\nWhat 'UserName' are you looking for?: ")
+
+    #the lowest index in that list and the lowest point
+    min = 0
+    #the max number of 
+    max = len(userNameList) - 1       #can also use len(listName) for 'records' value
+
+    #this is the midpoint to see if its on one half or the other
+    mid = int((min + max) / 2)
+    
+    #the main loop for finding it
+    while (min < max and search.upper() != userNameList[mid][1].upper()):
+        #This is for if the search is the 
+        #print(userNameList[mid][1].upper())
+        #input("")
+        if search.upper() < userNameList[mid][1].upper():
+
+            max = mid - 1
+
+        else:
+
+            min = mid + 1
+
+        mid = int((min + max) / 2)
+
+        #if mid == 8:
+            #print("8")
+        #else:
+            #print(mid)
+    #input("\nAfter")
+    #print(userNameList[mid][1].upper())
+        
+    #if they find it, if not
+    if search.upper() == userNameList[mid][1].upper():
+        #userNameList = leaderBoardScore(userNameList)
+        
+        print(f"\n{search:15}\tScore: {userNameList[mid][0]}\t Width: {userNameList[mid][2]}\t Height: {userNameList[mid][3]}")
+        input("\n\n\t------Press Enter-------")
+        #found them! use 'mid' for index of found search item
+
+    else:
+
+        #boooo not found
+        #print("\n-----UserName\tScore\tWidth\thight-----------")
+        print(f"\nThere is no userName called '{search}', You could have entered it wrong :(")
+        input("\n\n\t------Press Enter-------")
+        
+
+
+
+
+
+    #returning he list
+    
+    return userNameList
+
+
+def leaderboardMenu():
+    userOkay = [1,2]
+    userInput = -1
+    print("\nWhat would you like to do user\n")
+    print("1. Look for user Name")
+    print("2. Leave")
+
+
+    while userInput not in userOkay:
+        try:
+            userInput = int(input("\nWhat would you like user? "))
+        except:
+            print("\n---Please Enter a number---")
+        if userInput not in userOkay:
+            print("\n--1 or 2--")
+
+
+
+    #clear()
+    return userInput
+
+
+
+def leaderBoardFunction(totalList):
+    testingList = totalList
+    
+    totalList = leaderBoardScore(totalList)
+    print("\n\n\t-----Leader Board-----\n")
+    print(f"{'Rank':4}    {'Score':10}   {'UserName':20}   {'Width':5}       {'Height'}")
+    print("--------------------------------------------------------------------")
+    for i in range(0,10):
+        print(f"{i + 1:4}: {testingList[i][0]:10} | {testingList[i][1]:20} |  {testingList[i][2]:5}   |    {testingList[i][3]}")
+
+    userInput = leaderboardMenu()
+
+    
+    while userInput != 2:
+        totalList = leaderBoardScore(totalList)
+        clear()
+        print("\n\n\t-----Leader Board-----\n")
+        print(f"{'Rank':4}    {'Score':10}   {'UserName':20}   {'Width':5}       {'Height'}")
+        print("--------------------------------------------------------------------")
+        for i in range(0,10):
+            print(f"{i + 1:4}: {testingList[i][0]:10} | {testingList[i][1]:20} |  {testingList[i][2]:5}   |    {testingList[i][3]}")
+
+
+    
+        testingList = learderBoardUserName(testingList)
+
+        userInput = leaderboardMenu()
     
 
-
-def monsterFinds():
-    print("Monster")
-    hAHALuck = random.randint(0,1000000)
-    print(hAHALuck)
+    #print(totalList[0][1])
 
 
-    input()
 
+################----------Functions for the last option the display----------------################
+        
+def option3Display(maze):
+    mazeCopy = maze
+    
+
+    print("\t----------Map-----------")
+
+
+    for i in range(0, len(mazeCopy[0])):
+        print(f"{i + 1:2}:   {mazeCopy[i]}")
+
+
+    print("\nThis is what a map could look like")
+
+    input("\n\n\t---Press Enter---")
+    return mazeCopy
 
 ##############--------------Main Code-------------#################
 
@@ -792,18 +1154,19 @@ while userMenuChoise != 4:
 
     if userMenuChoise == 1:
 
-        #THis might need to return score, userName, width, hight, or a list of it
-        theWholeMazeGame()
-
-
-
-
+        totalList = theWholeMazeGame(totalList)
+        clear()
     elif userMenuChoise == 2:
-        print("\t2\n")
+        leaderBoardFunction(totalList)
+        clear()
     elif userMenuChoise == 3:
-        print("\t3\n")
+        width, height = findWidthAndHight()
+        maze,trash = init_maze(width, height)
+        trash = []
+        option3Display(maze)
+        clear()
     else:
-        print("\t4\n")
+        print("This code will never be seen :)")
     
     userMenuChoise = menu()
 

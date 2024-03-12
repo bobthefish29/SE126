@@ -51,14 +51,14 @@ for i in range(0, len(lname)):
         found.append(i)
 #outPut
 print (f"The projram went through {seq_search} times ")
-if found[0] != "":
-    print(f"The person {searchName} was at index {found}")
-    for i in range(0, len(found)):
+#if found[0] != "":
+    #print(f"The person {searchName} was at index {found}")
+    #for i in range(0, len(found)):
         
-        print(f"There name is {fname[found[i]]} {lname[found[i]]} \n{class1[found[i]]} \n{class2[found[i]]} \n{class3[found[i]]}")
-else:
-    print(f"There is no person with the name {searchName}")
-    print("Enter the ---name--- you want to use.")
+        #print(f"There name is {fname[found[i]]} {lname[found[i]]} \n{class1[found[i]]} \n{class2[found[i]]} \n{class3[found[i]]}")
+#else:
+    #print(f"There is no person with the name {searchName}")
+    #print("Enter the ---name--- you want to use.")
 
 
 
@@ -70,14 +70,14 @@ max = len(lname) - 1#taking away 1 because the lis does not go up to 26 only 25 
 mid = int((min + max) / 2)
 binCount = 0#just a count for the total times it then through
 #THis is the search idea
-while(min < max and searchName != lname[mid]):
+while(min < max and searchName.upper() != lname[mid].upper()):
     binCount += 1
-    if searchName < lname[mid]:
+    if searchName.upper() < lname[mid].upper():
         max = mid - 1
     else: 
         min = mid +1
     mid = int((min + max) / 2)
-if searchName== lname[mid]:
+if searchName.upper()== lname[mid].upper():
     #Found them
     print(f"There name is {fname[mid]} {lname[mid]} \n{class1[mid]} \n{class2[mid]} \n{class3[mid]}")
 else:
