@@ -1,6 +1,6 @@
 #David Punchak
-
-
+#SE126
+#3/12/24
 
 
 
@@ -39,6 +39,8 @@ totalList = []
 
 #for class testing this might need to be changed
 #this is just importing a textfile for the leaderboard
+#also need to change the one around the 480 line
+
 with open("Testing/FinalProject/TextFiles/Maze.csv") as csvFile:
     file = csv.reader(csvFile)
     for rec in file:
@@ -336,6 +338,7 @@ def theWholeMazeGame(totalList):
             
             #totalItems += 1
 
+
             #print(f"before if ")
             #print(f"\n\n\tDebug:\n\nTotalmoves: {totalMoves}")
 
@@ -410,6 +413,7 @@ def theWholeMazeGame(totalList):
 
 
 
+
             
             #print(f"\n----4.Total value run: {totalValue}-----")
                 
@@ -468,6 +472,8 @@ def theWholeMazeGame(totalList):
 
     userName = input("\nWhat should we call you?: ")
     copyList.append([score,userName, width, height])
+
+
     #this is completly new to me, this is adding the rec to the file so the game can be played over and over and have a true leaderboard
     #this Will need to be changed for the class demo, or it will brake
     file = open("Testing/FinalProject/TextFiles/Maze.csv","w")
